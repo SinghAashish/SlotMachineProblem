@@ -11,3 +11,6 @@ Colour Combinations        Tokens Returned Back
 All Different Colours	    0
 Any Two Same Colours	    2
 All Same Colours	        3x (Jackpot)
+
+Spinners colours that keep changing while they rotate are shown by the display.
+After the spins complete and all the spinners stop, the settled colour stays until the next round of play.

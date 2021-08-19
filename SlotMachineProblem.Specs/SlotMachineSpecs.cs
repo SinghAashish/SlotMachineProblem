@@ -10,7 +10,9 @@ namespace SlotMachineProblem.Specs
         {
             // Given
             FakeSpinner fake = new FakeSpinner();
-            var slotMachine = new SlotMachine(fake, fake, fake); // Constructor mandatory dependency
+            var dummy = new Console();
+
+            var slotMachine = new SlotMachine(fake, fake, fake, dummy); // Constructor mandatory dependency
 
             const int tokens = 1;
 
@@ -20,12 +22,45 @@ namespace SlotMachineProblem.Specs
             // Then
             Assert.Equal(0, tokensReturned);
         }
+
+        [Fact]
+        public void ShowStopedSpinnerColors()
+        {
+            //Given
+            FakeSpinner fake = new FakeSpinner();
+            FakeConsole fakeConsole = new FakeConsole();
+
+            var slotMachine = new SlotMachine(fake, fake, fake, fakeConsole); // Constructor mandatory dependency
+
+            const int tokens = 2;
+
+            //When
+            var tokensReturned = slotMachine.Play(tokens);
+
+            //Then
+            //fakeConsole.Verify(x => x.Show("green,red,blue"), Times.Once);
+
+            Assert.Equal("red,green,blue", fakeConsole.data);
+            Assert.Equal(1, fakeConsole.callCounter);
+        }
+    }
+
+    internal class FakeConsole : Console
+    {
+        internal string data = "";
+        internal int callCounter = 0;
+
+        public override void Show(string data)
+        {
+            this.data = data;
+            callCounter++;
+        }
     }
 
     internal class FakeSpinner : Spinner
     {
         private int callCount = 0;
-        internal override string Spin()
+        public override string Spin()
         {
             callCount++;
             if (callCount == 1)

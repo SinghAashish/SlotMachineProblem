@@ -8,7 +8,7 @@ namespace SlotMachineProblem
         {
         }
 
-        internal virtual string Spin()
+        public virtual string Spin()
         {
             return "green";
         }
